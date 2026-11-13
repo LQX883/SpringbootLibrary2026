@@ -44,6 +44,8 @@ xcopy sql dist\SpringbootLibrary2026\sql /E /I /Q /Y >nul
 copy README.md dist\SpringbootLibrary2026\ >nul
 copy scripts\start-backend.bat dist\SpringbootLibrary2026\ >nul
 copy scripts\deploy-frontend.bat dist\SpringbootLibrary2026\ >nul
+copy scripts\start-all.bat dist\SpringbootLibrary2026\ >nul
+copy scripts\stop-all.bat dist\SpringbootLibrary2026\ >nul
 
 powershell -NoProfile -Command "Compress-Archive -Path 'dist\SpringbootLibrary2026\*' -DestinationPath 'dist\SpringbootLibrary2026-separated.zip' -Force"
 
