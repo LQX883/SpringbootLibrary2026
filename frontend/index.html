@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SpringbootLibrary2026 智慧图书馆管理系统，前后端分离，Spring Data JPA + MySQL">
+  <title>拾光图书馆 · 智慧管理系统</title>
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16"/><path d="M8 7h8M8 11h6"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4 3 8l4 4"/><path d="M3 8h13a5 5 0 0 1 0 10h-3"/><path d="m17 20 4-4-4-4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21 12 16l-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15v3M12 10v8M17 6v12"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16v4M17 18h4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c3.3 2.6 8.7 2.6 12 0v-4.5"/><path d="M22 9v6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></symbol>
+</svg>
+
+<div id="app" v-cloak>
+  <!-- ======================= 登录 / 注册 ======================= -->
+  <div v-if="!user" class="auth-page">
+    <section class="auth-visual">
+      <div class="auth-brand">
+        <div class="brand-mark"><svg class="icon"><use href="#i-book"></use></svg></div>
+        <div class="brand-copy">
+          <strong>拾光图书馆</strong>
+          <span>SPRINGBOOT LIBRARY 2026</span>
+        </div>
+      </div>
+
+      <div class="auth-hero">
+        <span class="auth-kicker">智慧馆藏 · 阅读服务</span>
+        <h1>让每一本书<br>找到<em>它的读者</em></h1>
+        <p>以 Spring Boot 与 Spring Data JPA 构建的现代化图书馆管理平台，连接馆藏、借阅、预约与阅读数据，让知识流转更从容。</p>
+        <div class="auth-features">
+          <span><svg class="icon"><use href="#i-shield"></use></svg>JWT 登录拦截</span>
+          <span><svg class="icon"><use href="#i-book"></use></svg>馆藏与图片管理</span>
+          <span><svg class="icon"><use href="#i-bell"></use></svg>预约到书推送</span>
+        </div>
+      </div>
+
+      <div class="auth-shelf">
+        <div class="shelf-book"><span>三体</span></div>
+        <div class="shelf-book"><span>活着</span></div>
+        <div class="shelf-book"><span>百年孤独</span></div>
+        <div class="shelf-book"><span>人类简史</span></div>
+        <div class="shelf-book"><span>苏菲的世界</span></div>
+      </div>
+
+      <div class="auth-foot">
+        <span>SpringbootLibrary2026</span>
+        <span>Spring Data JPA · MySQL · Vue 3</span>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-card-head">
+          <span class="eyebrow">WELCOME BACK</span>
+          <h2>{{ authMode === 'login' ? '欢迎回到图书馆' : '创建你的读者账号' }}</h2>
+          <p>{{ authMode === 'login' ? '登录后即可查询馆藏、借阅图书并管理预约。' : '注册后可使用借阅、预约与个人阅读记录服务。' }}</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button type="button" :class="{ active: authMode === 'login' }" @click="switchAuth('login')">账号登录</button>
+          <button type="button" :class="{ active: authMode === 'register' }" @click="switchAuth('register')">新用户注册</button>
+        </div>
+
+        <form v-if="authMode === 'login'" class="auth-form" @submit.prevent="handleLogin">
+          <div class="field">
+            <label>用户名 <small>用户名或姓名</small></label>
+            <div class="input-group">
+              <svg class="icon"><use href="#i-user"></use></svg>
+              <input class="input" v-model.trim="loginForm.name" placeholder="请输入用户名" autocomplete="username">
+            </div>
+          </div>
+          <div class="field">
+            <label>密码 <small>至少 6 位</small></label>
+            <div class="input-group">
+              <svg class="icon"><use href="#i-lock"></use></svg>
+              <input class="input" type="password" v-model="loginForm.password" placeholder="请输入登录密码" autocomplete="current-password">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-submit" type="submit" :disabled="authLoading">
+            <span v-if="authLoading" class="spinner"></span>
+            <span>{{ authLoading ? '正在登录...' : '进入图书馆' }}</span>
+          </button>
+          <div class="auth-helper">
+            <span>演示环境，密码区分大小写</span>
+            <button type="button" class="btn-link" @click="fillDemo('admin')">使用管理员演示账号</button>
+          </div>
+        </form>
+
+        <form v-else class="auth-form" @submit.prevent="handleRegister">
+          <div class="form-grid">
+            <div class="field">
+              <label>用户名</label>
+              <input class="input" v-model.trim="registerForm.name" placeholder="2-20 个字符">
+            </div>
+            <div class="field">
+              <label>密码</label>
+              <input class="input" type="password" v-model="registerForm.password" placeholder="至少 6 位">
+            </div>
+            <div class="field">
+              <label>手机号</label>
+              <input class="input" v-model.trim="registerForm.phone" maxlength="11" placeholder="11 位手机号">
+            </div>
+            <div class="field">
+              <label>注册角色</label>
+              <select class="select" v-model="registerForm.role">
+                <option value="STUDENT">学生</option>
+                <option value="TEACHER">教师</option>
+                <option value="OPERATOR">图书管理员</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <label>专业 / 所属学科</label>
+              <input class="input" v-model.trim="registerForm.major" placeholder="例如：计算机科学与技术">
+            </div>
+            <template v-if="registerForm.role === 'STUDENT'">
+              <div class="field">
+                <label>年级</label>
+                <input class="input" v-model.trim="registerForm.grade" placeholder="例如：2024级">
+              </div>
+              <div class="field">
+                <label>所属学院</label>
+                <input class="input" v-model.trim="registerForm.college" placeholder="例如：信息工程学院">
+              </div>
+            </template>
+            <template v-else-if="registerForm.role === 'TEACHER'">
+              <div class="field">
+                <label>职称</label>
+                <input class="input" v-model.trim="registerForm.title" placeholder="例如：副教授">
+              </div>
+              <div class="field">
+                <label>所属学院</label>
+                <input class="input" v-model.trim="registerForm.college" placeholder="例如：文学院">
+              </div>
+            </template>
+            <template v-else>
+              <div class="field">
+                <label>负责区域</label>
+                <input class="input" v-model.trim="registerForm.area" placeholder="例如：一楼借阅区">
+              </div>
+              <div class="field">
+                <label>职务</label>
+                <input class="input" v-model.trim="registerForm.duty" placeholder="例如：借阅服务">
+              </div>
+            </template>
+            <div class="field span-2">
+              <label>电子邮箱 <small>选填</small></label>
+              <input class="input" v-model.trim="registerForm.email" placeholder="name@example.com">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-submit" type="submit" :disabled="authLoading" style="margin-top:20px">
+            <span v-if="authLoading" class="spinner"></span>
+            <span>{{ authLoading ? '正在注册...' : '注册并开始阅读' }}</span>
+          </button>
+        </form>
+
+        <div class="demo-accounts">
+          <div class="demo-accounts-title">
+            <svg class="icon"><use href="#i-sparkle"></use></svg>
+            一键填入演示账号
+          </div>
+          <div class="demo-chips">
+            <button type="button" class="demo-chip" @click="fillDemo('admin')">管理员 admin / admin123</button>
+            <button type="button" class="demo-chip" @click="fillDemo('operator')">图书管理员 operator / operator123</button>
+            <button type="button" class="demo-chip" @click="fillDemo('student1')">学生 student1 / student123</button>
+            <button type="button" class="demo-chip" @click="fillDemo('teacher')">教师 teacher / teacher123</button>
+          </div>
+        </div>
+
+        <div class="auth-switch">
+          {{ authMode === 'login' ? '还没有账号？' : '已经有账号？' }}
+          <button type="button" @click="switchAuth(authMode === 'login' ? 'register' : 'login')">
+            {{ authMode === 'login' ? '立即注册' : '返回登录' }}
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======================= 主应用 ======================= -->
+  <div v-else class="app-shell">
+    <div class="sidebar-mask" v-if="sidebarOpen" @click="sidebarOpen = false"></div>
+    <aside class="sidebar" :class="{ open: sidebarOpen }">
+      <div class="sidebar-logo">
+        <div class="brand-mark"><svg class="icon"><use href="#i-book"></use></svg></div>
+        <div>
+          <strong>拾光图书馆</strong>
+          <span>LIBRARY 2026</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group" v-for="group in navGroups" :key="group.label">
+          <div class="nav-group-title">{{ group.label }}</div>
+          <button class="nav-item" v-for="item in group.items" :key="item.id"
+                  :class="{ active: activeView === item.id }" @click="navigate(item.id)">
+            <svg class="icon"><use :href="'#i-' + item.icon"></use></svg>
+            <span>{{ item.label }}</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="sidebar-user-row">
+          <div class="avatar">{{ userInitial }}</div>
+          <div class="sidebar-user-info">
+            <strong>{{ user.name }}</strong>
+            <span>{{ roleLabel(user.role) }}</span>
+          </div>
+        </div>
+        <button class="sidebar-logout" @click="logout">
+          <svg class="icon"><use href="#i-logout"></use></svg>
+          退出当前账号
+        </button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="btn-icon mobile-menu" @click="sidebarOpen = true">
+          <svg class="icon"><use href="#i-menu"></use></svg>
+        </button>
+        <div class="page-heading">
+          <span class="eyebrow">{{ currentViewMeta.eyebrow }}</span>
+          <h1>{{ currentViewMeta.title }}</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="topbar-search">
+            <svg class="icon"><use href="#i-search"></use></svg>
+            <input v-model.trim="globalSearch" placeholder="搜索书名、作者或 ISBN，回车查询" @keyup.enter="globalSearchGo">
+          </div>
+
+          <div class="notif-wrap">
+            <button class="btn-icon notif-btn" @click="toggleNotifications" title="消息中心">
+              <svg class="icon"><use href="#i-bell"></use></svg>
+              <span class="notif-dot" v-if="unreadCount > 0">{{ unreadCount > 99 ? '99+' : unreadCount }}</span>
+            </button>
+            <div class="notif-pop" v-if="notificationPanelOpen">
+              <div class="notif-head">
+                <strong>消息中心</strong>
+                <div class="notif-head-actions">
+                  <span class="sse-state" :class="{ online: sseConnected }">{{ sseConnected ? '实时在线' : '连接中' }}</span>
+                  <button class="btn-link" @click="markAllRead" v-if="unreadCount > 0">全部已读</button>
+                </div>
+              </div>
+              <div class="notif-list">
+                <div class="notif-item" v-for="n in notifications" :key="n.id" @click="openNotification(n)">
+                  <div class="notif-icon" :class="{ reservation: n.type === 'RESERVATION' }">
+                    <svg class="icon"><use :href="n.type === 'RESERVATION' ? '#i-bookmark' : '#i-bell'"></use></svg>
+                  </div>
+                  <div class="notif-body">
+                    <strong>{{ n.title }} <span class="unread-mark" v-if="!n.readFlag"></span></strong>
+                    <p>{{ n.content }}</p>
+                    <div class="notif-time">{{ fromNow(n.createdAt) }}</div>
+                  </div>
+                </div>
+                <div class="notif-empty" v-if="!notifications.length">暂时没有新消息</div>
+              </div>
+              <div class="notif-foot">
+                <button class="btn-link" @click="loadNotifications">刷新消息</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="user-chip" @click="navigate('profile')" title="个人资料">
+            <div class="avatar">{{ userInitial }}</div>
+            <div class="user-chip-text">
+              <strong>{{ user.name }}</strong>
+              <span>{{ roleLabel(user.role) }}</span>
+            </div>
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- 工作台 -->
+        <section class="page-section" v-if="activeView === 'dashboard'">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <span class="hero-date">
+                <svg class="icon"><use href="#i-calendar"></use></svg>
+                {{ todayText }}
+              </span>
+              <h2>{{ greeting }}，<em>{{ user.name }}</em></h2>
+              <p v-if="isStaff">今天有 {{ dashboard.overview ? dashboard.overview.activeLoans : 0 }} 本图书在借，{{ dashboard.overview ? dashboard.overview.overdueLoans : 0 }} 条借阅已超期，{{ dashboard.overview ? dashboard.overview.waitingReservations : 0 }} 位读者正在等待预约到书。</p>
+              <p v-else>书架上的故事正在等待与你相遇。你可以查询馆藏、借阅心仪的图书，或在暂无可借副本时预约排队。</p>
+              <div class="hero-actions">
+                <button class="btn btn-gold" @click="navigate('books')">
+                  <svg class="icon"><use href="#i-search"></use></svg>
+                  探索馆藏
+                </button>
+                <button class="btn btn-ghost" @click="navigate('loans')">
+                  <svg class="icon"><use href="#i-swap"></use></svg>
+                  我的借阅
+                </button>
+                <button class="btn btn-ghost" @click="navigate('reservations')">
+                  <svg class="icon"><use href="#i-bookmark"></use></svg>
+                  预约记录
+                </button>
+              </div>
+            </div>
+            <div class="hero-seal">
+              <div class="seal-text">开卷有益<small>READ · GROW</small></div>
+            </div>
+          </div>
+
+          <div class="stat-grid" style="margin-top:18px">
+            <div class="stat-card" v-for="card in dashboardCards" :key="card.label">
+              <div class="stat-top">
+                <span class="stat-label">{{ card.label }}</span>
+                <div class="stat-icon" :class="card.tone"><svg class="icon"><use :href="'#i-' + card.icon"></use></svg></div>
+              </div>
+              <div class="stat-value">{{ card.value }}</div>
+              <div class="stat-foot">{{ card.foot }}</div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">
+                  <h2>{{ isStaff ? '最近借阅动态' : '我的借阅记录' }}</h2>
+                  <p>{{ isStaff ? '全馆最新借阅与归还情况' : '你最近的借阅与到期提醒' }}</p>
+                </div>
+                <button class="btn-link" @click="navigate('loans')">查看全部 →</button>
+              </div>
+              <div class="panel-body">
+                <div class="mini-list" v-if="dashboard.recentLoans.length">
+                  <div class="mini-item" v-for="loan in dashboard.recentLoans" :key="loan.id">
+                    <div class="book-cover" :style="{ background: coverGradient(loan.bookId) }">
+                      <img v-if="loan.bookCover" :src="assetUrl(loan.bookCover)" :alt="loan.bookTitle">
+                      <div class="cover-fallback" v-else><span>{{ (loan.bookTitle || '书').slice(0, 1) }}</span></div>
+                    </div>
+                    <div class="mini-main">
+                      <strong>{{ loan.bookTitle }}</strong>
+                      <span>{{ isStaff ? loan.userName + ' · ' : '' }}{{ loan.status === 'RETURNED' ? '已归还' : (loan.overdue ? '已超期' : '借阅中') }}</span>
+                    </div>
+                    <div class="mini-side">
+                      <strong>{{ loan.status === 'RETURNED' ? '✓' : (loan.daysLeft === null ? '-' : loan.daysLeft + '天') }}</strong>
+                      <span>{{ fmtDate(loan.borrowDate) }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-empty" v-else>
+                  <div class="empty-icon"><svg class="icon"><use href="#i-book"></use></svg></div>
+                  <strong>还没有借阅记录</strong>
+                  <span>去馆藏目录挑一本喜欢的书吧</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">
+                  <h2>{{ isStaff ? '热门馆藏' : '新书上架' }}</h2>
+                  <p>{{ isStaff ? '按历史借阅次数排序' : '最近入库的馆藏图书' }}</p>
+                </div>
+                <button class="btn-link" @click="navigate('books')">馆藏目录 →</button>
+              </div>
+              <div class="panel-body">
+                <div class="rank-list" v-if="dashboard.popular.length">
+                  <div class="rank-item" v-for="(item, index) in dashboard.popular" :key="item.name">
+                    <span class="rank-no">{{ index + 1 }}</span>
+                    <div class="rank-main">
+                      <strong>{{ item.name }}</strong>
+                      <div class="rank-bar"><span :style="{ width: barPercent(item.value, dashboard.popular) + '%' }"></span></div>
+                    </div>
+                    <span class="rank-value">{{ item.value }} {{ dashboard.popularUnit }}</span>
+                  </div>
+                </div>
+                <div class="table-empty" v-else>
+                  <div class="empty-icon"><svg class="icon"><use href="#i-chart"></use></svg></div>
+                  <strong>暂无排行数据</strong>
+                  <span>借阅数据积累后会在这里展示</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:18px">
+            <div class="panel-head">
+              <div class="panel-title">
+                <h2>快捷入口</h2>
+                <p>常用功能一键直达</p>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div class="quick-grid">
+                <button class="quick-card" @click="navigate('books')">
+                  <span class="quick-icon"><svg class="icon"><use href="#i-book"></use></svg></span>
+                  <span><strong>馆藏查询</strong><small>多条件检索与分页浏览</small></span>
+                </button>
+                <button class="quick-card" @click="navigate('loans')">
+                  <span class="quick-icon gold"><svg class="icon"><use href="#i-swap"></use></svg></span>
+                  <span><strong>借阅记录</strong><small>查看借还状态与到期时间</small></span>
+                </button>
+                <button class="quick-card" @click="navigate('reservations')">
+                  <span class="quick-icon blue"><svg class="icon"><use href="#i-bookmark"></use></svg></span>
+                  <span><strong>我的预约</strong><small>缺书排队与到书通知</small></span>
+                </button>
+                <button class="quick-card" @click="navigate(isAdmin ? 'logs' : 'profile')">
+                  <span class="quick-icon red"><svg class="icon"><use :href="isAdmin ? '#i-history' : '#i-user'"></use></svg></span>
+                  <span><strong>{{ isAdmin ? '操作日志' : '个人资料' }}</strong><small>{{ isAdmin ? 'AOP 记录每一次操作' : '查看账号与角色信息' }}</small></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 图书 -->
+        <section class="page-section" v-if="activeView === 'books'">
+          <div class="section-head">
+            <div>
+              <h2>馆藏目录</h2>
+              <p>服务端分页 · 多条件组合查询 · 默认展示 10 条</p>
+            </div>
+            <button class="btn btn-primary" v-if="canManageBooks" @click="openBookForm()">
+              <svg class="icon"><use href="#i-plus"></use></svg>
+              新增图书
+            </button>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-item">
+              <label>关键字</label>
+              <div class="input-group">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input class="input" v-model.trim="bookFilters.keyword" placeholder="书名 / 作者 / ISBN / 出版社" @keyup.enter="searchBooks">
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>图书分类</label>
+              <select class="select" v-model="bookFilters.type">
+                <option value="">全部分类</option>
+                <option v-for="type in bookTypes" :key="type" :value="type">{{ type }}</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>图书状态</label>
+              <select class="select" v-model="bookFilters.status">
+                <option value="">全部状态</option>
+                <option value="ACTIVE">在架</option>
+                <option value="DISCARDED">已下架</option>
+              </select>
+            </div>
+            <div class="filter-item filter-check">
+              <label class="checkbox"><input type="checkbox" v-model="bookFilters.onlyAvailable">仅看可借</label>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary" @click="searchBooks"><svg class="icon"><use href="#i-search"></use></svg>查询</button>
+              <button class="btn btn-ghost" @click="resetBookFilters"><svg class="icon"><use href="#i-refresh"></use></svg>重置</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                <tr>
+                  <th style="width:30%">图书</th>
+                  <th>分类</th>
+                  <th>出版信息</th>
+                  <th>馆藏</th>
+                  <th>状态</th>
+                  <th style="text-align:right">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="book in books.records" :key="book.id">
+                  <td>
+                    <div class="book-cell">
+                      <div class="book-cover" :style="{ background: coverGradient(book.id) }">
+                        <img v-if="book.coverUrl" :src="assetUrl(book.coverUrl)" :alt="book.title">
+                        <div class="cover-fallback" v-else>
+                          <span>{{ book.title.slice(0, 1) }}</span>
+                          <small>{{ book.title }}</small>
+                        </div>
+                      </div>
+                      <div class="book-cell-text">
+                        <strong>{{ book.title }}</strong>
+                        <span>{{ book.author }} · {{ book.isbn || '暂无 ISBN' }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gold">{{ book.type || '未分类' }}</span></td>
+                  <td>
+                    <div>{{ book.publisher || '—' }}</div>
+                    <div class="muted" style="font-size:10.5px">索书号 {{ book.shelfNo || '—' }}</div>
+                  </td>
+                  <td class="stock-cell">
+                    <div class="stock-num">{{ book.availableCopies }} <small>/ {{ book.totalCopies }} 本可借</small></div>
+                    <div class="stock-bar" :class="{ low: book.availableCopies > 0 && book.availableCopies <= 2, empty: book.availableCopies === 0 }">
+                      <span :style="{ width: stockPercent(book) + '%' }"></span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge" :class="book.status === 'ACTIVE' ? 'badge-green' : 'badge-gray'">
+                      {{ book.status === 'ACTIVE' ? '在架' : '已下架' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="actions" style="justify-content:flex-end">
+                      <button class="btn btn-ghost" @click="openBook(book.id)">
+                        <svg class="icon"><use href="#i-eye"></use></svg>查看
+                      </button>
+                      <button class="btn btn-primary" v-if="book.availableCopies > 0 && book.status === 'ACTIVE'" @click="borrowBook(book)">
+                        <svg class="icon"><use href="#i-swap"></use></svg>借阅
+                      </button>
+                      <button class="btn btn-gold" v-else-if="book.status === 'ACTIVE'" @click="reserveBook(book)">
+                        <svg class="icon"><use href="#i-bookmark"></use></svg>预约
+                      </button>
+                      <template v-if="canManageBooks">
+                        <button class="btn btn-ghost" @click="openBookForm(book)">
+                          <svg class="icon"><use href="#i-edit"></use></svg>编辑
+                        </button>
+                        <button class="btn btn-ghost" @click="toggleBookStatus(book)">
+                          <svg class="icon"><use href="#i-image"></use></svg>{{ book.status === 'ACTIVE' ? '下架' : '上架' }}
+                        </button>
+                      </template>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="table-empty" v-if="!books.records.length">
+                <div class="empty-icon"><svg class="icon"><use href="#i-book"></use></svg></div>
+                <strong>没有找到符合条件的图书</strong>
+                <span>试试更换关键字或清空筛选条件</span>
+              </div>
+            </div>
+            <div class="table-foot">
+              <pager :data="books" @change="changeBookPage"></pager>
+            </div>
+          </div>
+        </section>
+
+        <!-- 用户管理 -->
+        <section class="page-section" v-if="activeView === 'users'">
+          <div class="section-head">
+            <div>
+              <h2>用户信息查询</h2>
+              <p>管理员可多条件检索用户、查看角色档案并启用或停用账号</p>
+            </div>
+            <span class="badge badge-gold">仅管理员可见</span>
+          </div>
+
+          <div class="filter-bar wide">
+            <div class="filter-item">
+              <label>关键字</label>
+              <div class="input-group">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input class="input" v-model.trim="userFilters.keyword" placeholder="用户名 / 手机号 / 专业" @keyup.enter="searchUsers">
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>角色</label>
+              <select class="select" v-model="userFilters.role">
+                <option value="">全部角色</option>
+                <option value="ADMIN">管理员</option>
+                <option value="OPERATOR">图书管理员</option>
+                <option value="STUDENT">学生</option>
+                <option value="TEACHER">教师</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>状态</label>
+              <select class="select" v-model="userFilters.status">
+                <option value="">全部状态</option>
+                <option value="ACTIVE">正常</option>
+                <option value="DISABLED">已停用</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>专业</label>
+              <input class="input" v-model.trim="userFilters.major" placeholder="模糊匹配专业">
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary" @click="searchUsers"><svg class="icon"><use href="#i-search"></use></svg>查询</button>
+              <button class="btn btn-ghost" @click="resetUserFilters"><svg class="icon"><use href="#i-refresh"></use></svg>重置</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                <tr>
+                  <th style="width:20%">用户</th>
+                  <th>角色</th>
+                  <th>手机号</th>
+                  <th>专业 / 学院</th>
+                  <th>状态</th>
+                  <th>最近登录</th>
+                  <th style="text-align:right">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in users.records" :key="item.id">
+                  <td>
+                    <div class="user-cell">
+                      <div class="avatar">{{ (item.name || '?').slice(0, 1) }}</div>
+                      <div>
+                        <strong>{{ item.name }}</strong>
+                        <span>ID #{{ item.id }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge" :class="roleBadgeClass(item.role)">{{ roleLabel(item.role) }}</span></td>
+                  <td>{{ item.phone || '—' }}</td>
+                  <td>
+                    <div>{{ item.major || '—' }}</div>
+                    <div class="muted" style="font-size:10.5px">{{ item.college || item.grade || '—' }}</div>
+                  </td>
+                  <td>
+                    <span class="badge" :class="item.status === 'ACTIVE' ? 'badge-green' : 'badge-red'">
+                      {{ item.status === 'ACTIVE' ? '正常' : '已停用' }}
+                    </span>
+                  </td>
+                  <td class="muted">{{ fmtDateTime(item.loginTime) || '从未登录' }}</td>
+                  <td>
+                    <div class="actions" style="justify-content:flex-end">
+                      <button class="btn btn-ghost" @click="openUser(item.id)">
+                        <svg class="icon"><use href="#i-eye"></use></svg>查看
+                      </button>
+                      <button class="btn" :class="item.status === 'ACTIVE' ? 'btn-danger' : 'btn-ghost'"
+                              @click="toggleUserStatus(item)">
+                        {{ item.status === 'ACTIVE' ? '停用' : '启用' }}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="table-empty" v-if="!users.records.length">
+                <div class="empty-icon"><svg class="icon"><use href="#i-users"></use></svg></div>
+                <strong>没有找到符合条件的用户</strong>
+                <span>请调整关键字或筛选条件</span>
+              </div>
+            </div>
+            <div class="table-foot">
+              <pager :data="users" @change="changeUserPage"></pager>
+            </div>
+          </div>
+        </section>
+
+        <!-- 借阅记录 -->
+        <section class="page-section" v-if="activeView === 'loans'">
+          <div class="section-head">
+            <div>
+              <h2>借阅记录</h2>
+              <p>服务端分页 · 支持状态、关键字与借阅日期组合查询</p>
+            </div>
+            <div class="segmented" v-if="isStaff">
+              <button :class="{ active: loanScope === 'all' }" @click="switchLoanScope('all')">全部借阅</button>
+              <button :class="{ active: loanScope === 'my' }" @click="switchLoanScope('my')">我的借阅</button>
+            </div>
+          </div>
+
+          <div class="filter-bar wide">
+            <div class="filter-item">
+              <label>关键字</label>
+              <div class="input-group">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input class="input" v-model.trim="loanFilters.keyword" placeholder="书名 / 作者 / 借阅人" @keyup.enter="searchLoans">
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>借阅状态</label>
+              <select class="select" v-model="loanFilters.status">
+                <option value="">全部状态</option>
+                <option value="BORROWED">借阅中</option>
+                <option value="OVERDUE">已超期</option>
+                <option value="RETURNED">已归还</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>借阅开始日期</label>
+              <input class="input" type="date" v-model="loanFilters.start">
+            </div>
+            <div class="filter-item">
+              <label>借阅结束日期</label>
+              <input class="input" type="date" v-model="loanFilters.end">
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary" @click="searchLoans"><svg class="icon"><use href="#i-search"></use></svg>查询</button>
+              <button class="btn btn-ghost" @click="resetLoanFilters"><svg class="icon"><use href="#i-refresh"></use></svg>重置</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                <tr>
+                  <th v-if="isStaff && loanScope === 'all'" style="width:15%">借阅人</th>
+                  <th style="width:26%">图书</th>
+                  <th>借阅日期</th>
+                  <th>应还日期</th>
+                  <th>状态</th>
+                  <th>剩余时间</th>
+                  <th style="text-align:right">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="loan in loans.records" :key="loan.id" :class="{ 'row-danger': loan.overdue }">
+                  <td v-if="isStaff && loanScope === 'all'">
+                    <div class="user-cell">
+                      <div class="avatar">{{ (loan.userName || '?').slice(0, 1) }}</div>
+                      <div>
+                        <strong>{{ loan.userName }}</strong>
+                        <span>ID #{{ loan.userId }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="book-cell">
+                      <div class="book-cover" :style="{ background: coverGradient(loan.bookId) }">
+                        <img v-if="loan.bookCover" :src="assetUrl(loan.bookCover)" :alt="loan.bookTitle">
+                        <div class="cover-fallback" v-else><span>{{ (loan.bookTitle || '书').slice(0, 1) }}</span></div>
+                      </div>
+                      <div class="book-cell-text">
+                        <strong>{{ loan.bookTitle }}</strong>
+                        <span>{{ loan.bookAuthor }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{ fmtDateTime(loan.borrowDate) }}</td>
+                  <td>{{ fmtDateTime(loan.dueDate) }}</td>
+                  <td>
+                    <span class="badge" :class="loanBadgeClass(loan.status)">{{ loanStatusLabel(loan.status) }}</span>
+                  </td>
+                  <td>
+                    <span v-if="loan.status === 'RETURNED'" class="muted">已于 {{ fmtDate(loan.returnDate) }} 归还</span>
+                    <span v-else-if="loan.overdue" class="text-danger">超期 {{ abs(loan.daysLeft) }} 天</span>
+                    <span v-else class="text-success">剩余 {{ loan.daysLeft }} 天</span>
+                  </td>
+                  <td>
+                    <div class="actions" style="justify-content:flex-end">
+                      <button class="btn btn-primary" v-if="loan.status !== 'RETURNED'" @click="returnLoan(loan)">
+                        <svg class="icon"><use href="#i-return"></use></svg>还书
+                      </button>
+                      <span class="muted" v-else>已完成</span>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="table-empty" v-if="!loans.records.length">
+                <div class="empty-icon"><svg class="icon"><use href="#i-swap"></use></svg></div>
+                <strong>暂无借阅记录</strong>
+                <span>查询条件内没有找到借阅数据</span>
+              </div>
+            </div>
+            <div class="table-foot">
+              <pager :data="loans" @change="changeLoanPage"></pager>
+            </div>
+          </div>
+        </section>
+
+        <!-- 预约 -->
+        <section class="page-section" v-if="activeView === 'reservations'">
+          <div class="section-head">
+            <div>
+              <h2>图书预约</h2>
+              <p>暂无可借副本时可预约排队，到书后通过 SSE 实时推送消息</p>
+            </div>
+            <div class="segmented" v-if="isStaff">
+              <button :class="{ active: reservationScope === 'all' }" @click="switchReservationScope('all')">全部预约</button>
+              <button :class="{ active: reservationScope === 'my' }" @click="switchReservationScope('my')">我的预约</button>
+            </div>
+          </div>
+
+          <div class="filter-bar" style="grid-template-columns:minmax(180px,1.2fr) minmax(130px,.7fr) auto">
+            <div class="filter-item">
+              <label>关键字</label>
+              <div class="input-group">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input class="input" v-model.trim="reservationFilters.keyword" placeholder="书名 / 作者 / 预约人" @keyup.enter="searchReservations">
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>预约状态</label>
+              <select class="select" v-model="reservationFilters.status">
+                <option value="">全部状态</option>
+                <option value="WAITING">排队中</option>
+                <option value="NOTIFIED">已通知</option>
+                <option value="FULFILLED">已借出</option>
+                <option value="CANCELLED">已取消</option>
+              </select>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary" @click="searchReservations"><svg class="icon"><use href="#i-search"></use></svg>查询</button>
+              <button class="btn btn-ghost" @click="resetReservationFilters"><svg class="icon"><use href="#i-refresh"></use></svg>重置</button>
+            </div>
+          </div>
+
+          <div class="profile-note" style="margin-bottom:16px">
+            <svg class="icon"><use href="#i-bell"></use></svg>
+            <span>预约到书提醒通过 SSE 实时推送：当其他读者归还你预约的图书，或馆藏新增副本时，右上角消息中心会立即收到通知。通知状态保持 48 小时，请及时借阅。</span>
+          </div>
+
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                <tr>
+                  <th style="width:28%">预约图书</th>
+                  <th v-if="isStaff && reservationScope === 'all'">预约人</th>
+                  <th>预约时间</th>
+                  <th>状态</th>
+                  <th>通知 / 有效期</th>
+                  <th style="text-align:right">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in reservations.records" :key="item.id">
+                  <td>
+                    <div class="book-cell">
+                      <div class="book-cover" :style="{ background: coverGradient(item.bookId) }">
+                        <img v-if="item.bookCover" :src="assetUrl(item.bookCover)" :alt="item.bookTitle">
+                        <div class="cover-fallback" v-else><span>{{ (item.bookTitle || '书').slice(0, 1) }}</span></div>
+                      </div>
+                      <div class="book-cell-text">
+                        <strong>{{ item.bookTitle }}</strong>
+                        <span>{{ item.bookAuthor }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td v-if="isStaff && reservationScope === 'all'">
+                    <div class="user-cell">
+                      <div class="avatar">{{ (item.userName || '?').slice(0, 1) }}</div>
+                      <div><strong>{{ item.userName }}</strong><span>ID #{{ item.userId }}</span></div>
+                    </div>
+                  </td>
+                  <td>{{ fmtDateTime(item.createdAt) }}</td>
+                  <td><span class="badge" :class="reservationBadgeClass(item.status)">{{ reservationStatusLabel(item.status) }}</span></td>
+                  <td>
+                    <template v-if="item.status === 'NOTIFIED'">
+                      <div class="text-gold">已发送到书通知</div>
+                      <div class="muted" style="font-size:10.5px">有效期至 {{ fmtDateTime(item.expiresAt) }}</div>
+                    </template>
+                    <span v-else-if="item.status === 'WAITING'" class="muted">等待可借副本释放</span>
+                    <span v-else class="muted">—</span>
+                  </td>
+                  <td>
+                    <div class="actions" style="justify-content:flex-end">
+                      <button class="btn btn-danger" v-if="item.status === 'WAITING' || item.status === 'NOTIFIED'" @click="cancelReservation(item)">
+                        取消预约
+                      </button>
+                      <button class="btn btn-primary" v-if="item.status === 'NOTIFIED'" @click="navigate('books', item.bookId)">
+                        去借阅
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="table-empty" v-if="!reservations.records.length">
+                <div class="empty-icon"><svg class="icon"><use href="#i-bookmark"></use></svg></div>
+                <strong>暂无预约记录</strong>
+                <span>当想借的书暂无可借副本时，可以在馆藏目录发起预约</span>
+              </div>
+            </div>
+            <div class="table-foot">
+              <pager :data="reservations" @change="changeReservationPage"></pager>
+            </div>
+          </div>
+        </section>
+
+        <!-- 数据统计 -->
+        <section class="page-section" v-if="activeView === 'stats'">
+          <div class="section-head">
+            <div>
+              <h2>馆藏数据统计</h2>
+              <p>馆藏结构、借阅趋势、热门图书与用户构成</p>
+            </div>
+            <button class="btn btn-ghost" @click="loadStats"><svg class="icon"><use href="#i-refresh"></use></svg>刷新数据</button>
+          </div>
+
+          <div v-if="stats.loading">
+            <div class="stat-grid">
+              <div class="skeleton-row" v-for="i in 4" :key="i" style="height:118px"></div>
+            </div>
+            <div class="chart-grid">
+              <div class="skeleton-row" style="height:340px"></div>
+              <div class="skeleton-row" style="height:340px"></div>
+            </div>
+          </div>
+
+          <template v-else>
+            <div class="stat-grid">
+              <div class="stat-card" v-for="card in statsCards" :key="card.label">
+                <div class="stat-top">
+                  <span class="stat-label">{{ card.label }}</span>
+                  <div class="stat-icon" :class="card.tone"><svg class="icon"><use :href="'#i-' + card.icon"></use></svg></div>
+                </div>
+                <div class="stat-value">{{ card.value }}</div>
+                <div class="stat-foot">{{ card.foot }}</div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <div class="panel chart-card">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>近六个月借阅趋势</h2><p>每月新增借阅记录数量</p></div>
+                  <span class="badge badge-green">借阅趋势</span>
+                </div>
+                <div class="panel-body">
+                  <div class="bar-chart">
+                    <div class="bar-col" v-for="item in stats.monthly" :key="item.name">
+                      <span class="bar-value">{{ item.value }}</span>
+                      <div class="bar" :style="{ height: barHeight(item.value, stats.monthly) + '%' }"></div>
+                      <span class="bar-label">{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel chart-card">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>用户角色构成</h2><p>平台注册用户角色分布</p></div>
+                </div>
+                <div class="panel-body">
+                  <div class="donut-wrap">
+                    <div class="donut" :style="{ background: roleDonutStyle }">
+                      <div class="donut-center">
+                        <div>
+                          <strong>{{ stats.overview ? stats.overview.totalUsers : 0 }}</strong>
+                          <span>总用户</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="legend">
+                      <div class="legend-item" v-for="(item, index) in stats.roles" :key="item.name">
+                        <span class="legend-dot" :style="{ background: roleColors[index % roleColors.length] }"></span>
+                        {{ item.name }}
+                        <strong>{{ item.value }} 人</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <div class="panel chart-card">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>馆藏分类结构</h2><p>各分类图书品种数量</p></div>
+                </div>
+                <div class="panel-body">
+                  <div class="hbar-list" v-if="stats.bookTypes.length">
+                    <div v-for="item in stats.bookTypes" :key="item.name">
+                      <div class="hbar-head"><span>{{ item.name }}</span><span>{{ item.value }} 种</span></div>
+                      <div class="hbar-track"><div class="hbar-fill" :style="{ width: barPercent(item.value, stats.bookTypes) + '%' }"></div></div>
+                    </div>
+                  </div>
+                  <div class="table-empty" v-else><strong>暂无分类数据</strong></div>
+                </div>
+              </div>
+
+              <div class="panel chart-card">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>分类借阅热度</h2><p>按图书分类统计历史借阅次数</p></div>
+                </div>
+                <div class="panel-body">
+                  <div class="hbar-list" v-if="stats.loanTypes.length">
+                    <div v-for="item in stats.loanTypes" :key="item.name">
+                      <div class="hbar-head"><span>{{ item.name }}</span><span>{{ item.value }} 次</span></div>
+                      <div class="hbar-track"><div class="hbar-fill gold" :style="{ width: barPercent(item.value, stats.loanTypes) + '%' }"></div></div>
+                    </div>
+                  </div>
+                  <div class="table-empty" v-else><strong>暂无借阅分类数据</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <div class="panel">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>热门借阅排行</h2><p>借阅次数最多的图书</p></div>
+                </div>
+                <div class="panel-body">
+                  <div class="rank-list" v-if="stats.topBooks.length">
+                    <div class="rank-item" v-for="(item, index) in stats.topBooks" :key="item.name">
+                      <span class="rank-no">{{ index + 1 }}</span>
+                      <div class="rank-main">
+                        <strong>{{ item.name }}</strong>
+                        <div class="rank-bar"><span :style="{ width: barPercent(item.value, stats.topBooks) + '%' }"></span></div>
+                      </div>
+                      <span class="rank-value">{{ item.value }} 次</span>
+                    </div>
+                  </div>
+                  <div class="table-empty" v-else><strong>暂无排行数据</strong></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-head">
+                  <div class="panel-title"><h2>最近借阅</h2><p>最新六条借阅动态</p></div>
+                  <button class="btn-link" @click="navigate('loans')">全部记录 →</button>
+                </div>
+                <div class="panel-body">
+                  <div class="mini-list" v-if="stats.recent.length">
+                    <div class="mini-item" v-for="loan in stats.recent" :key="loan.id">
+                      <div class="avatar" style="width:31px;height:31px;font-size:11px">{{ (loan.userName || '?').slice(0, 1) }}</div>
+                      <div class="mini-main">
+                        <strong>{{ loan.bookTitle }}</strong>
+                        <span>{{ loan.userName }} · {{ fmtDate(loan.borrowDate) }}</span>
+                      </div>
+                      <span class="badge" :class="loanBadgeClass(loan.status)">{{ loanStatusLabel(loan.status) }}</span>
+                    </div>
+                  </div>
+                  <div class="table-empty" v-else><strong>暂无借阅动态</strong></div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </section>
+
+        <!-- 操作日志 -->
+        <section class="page-section" v-if="activeView === 'logs'">
+          <div class="section-head">
+            <div>
+              <h2>操作日志</h2>
+              <p>基于 Spring AOP 自动记录登录、图书、借阅、预约等操作</p>
+            </div>
+            <span class="badge badge-gold">仅管理员可见</span>
+          </div>
+
+          <div class="filter-bar wide">
+            <div class="filter-item">
+              <label>业务模块</label>
+              <select class="select" v-model="logFilters.module">
+                <option value="">全部模块</option>
+                <option value="认证">认证</option>
+                <option value="用户">用户</option>
+                <option value="图书">图书</option>
+                <option value="图书附件">图书附件</option>
+                <option value="借阅">借阅</option>
+                <option value="预约">预约</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>关键字</label>
+              <div class="input-group">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input class="input" v-model.trim="logFilters.keyword" placeholder="操作人 / 描述 / URI" @keyup.enter="searchLogs">
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>执行结果</label>
+              <select class="select" v-model="logFilters.success">
+                <option value="">全部结果</option>
+                <option value="true">成功</option>
+                <option value="false">失败</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>开始日期</label>
+              <input class="input" type="date" v-model="logFilters.start">
+            </div>
+            <div class="filter-item">
+              <label>结束日期</label>
+              <input class="input" type="date" v-model="logFilters.end">
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-primary" @click="searchLogs"><svg class="icon"><use href="#i-search"></use></svg>查询</button>
+              <button class="btn btn-ghost" @click="resetLogFilters"><svg class="icon"><use href="#i-refresh"></use></svg>重置</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-wrap">
+              <table class="data-table" style="min-width:1080px">
+                <thead>
+                <tr>
+                  <th>模块 / 操作</th>
+                  <th>操作人</th>
+                  <th>请求</th>
+                  <th>参数摘要</th>
+                  <th>结果</th>
+                  <th>耗时</th>
+                  <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="log in logs.records" :key="log.id">
+                  <td>
+                    <span class="badge badge-gold">{{ log.module }}</span>
+                    <div style="margin-top:4px;font-size:12px;color:var(--ink-soft)">{{ log.action }}</div>
+                  </td>
+                  <td>
+                    <strong>{{ log.userName || '匿名' }}</strong>
+                    <div class="muted" style="font-size:10px">{{ log.ip || '—' }}</div>
+                  </td>
+                  <td>
+                    <div class="log-uri">{{ log.method }} {{ log.uri }}</div>
+                    <div class="muted" style="font-size:10px">{{ log.description }}</div>
+                  </td>
+                  <td><div class="log-params" :title="log.params">{{ log.params || '—' }}</div></td>
+                  <td>
+                    <span class="badge" :class="log.success ? 'badge-green' : 'badge-red'">{{ log.success ? '成功' : '失败' }}</span>
+                    <div class="muted" style="font-size:10px" v-if="log.errorMsg" :title="log.errorMsg">{{ log.errorMsg }}</div>
+                  </td>
+                  <td><span class="duration">{{ log.durationMs }} ms</span></td>
+                  <td class="muted nowrap">{{ fmtDateTime(log.createdAt) }}</td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="table-empty" v-if="!logs.records.length">
+                <div class="empty-icon"><svg class="icon"><use href="#i-history"></use></svg></div>
+                <strong>暂无操作日志</strong>
+                <span>执行一次新增、编辑、借阅或还书操作后再来看看</span>
+              </div>
+            </div>
+            <div class="table-foot">
+              <pager :data="logs" @change="changeLogPage"></pager>
+            </div>
+          </div>
+        </section>
+
+        <!-- 个人资料 -->
+        <section class="page-section" v-if="activeView === 'profile'">
+          <div class="section-head">
+            <div>
+              <h2>个人资料</h2>
+              <p>查看当前登录账号与角色档案</p>
+            </div>
+            <span class="badge" :class="user.status === 'ACTIVE' ? 'badge-green' : 'badge-red'">
+              {{ user.status === 'ACTIVE' ? '账号正常' : '账号已停用' }}
+            </span>
+          </div>
+
+          <div class="chart-grid">
+            <div class="panel">
+              <div class="panel-body">
+                <div class="profile-hero">
+                  <div class="avatar lg">{{ userInitial }}</div>
+                  <div>
+                    <h3>{{ user.name }}</h3>
+                    <p>{{ roleLabel(user.role) }} · {{ user.major || '未填写专业' }}</p>
+                    <span class="badge badge-gold" style="margin-top:6px">{{ user.email || '未填写邮箱' }}</span>
+                  </div>
+                </div>
+
+                <div class="profile-grid">
+                  <div class="profile-cell"><span>用户 ID</span><strong>#{{ user.id }}</strong></div>
+                  <div class="profile-cell"><span>手机号</span><strong>{{ user.phone || '—' }}</strong></div>
+                  <div class="profile-cell"><span>专业 / 学科</span><strong>{{ user.major || '—' }}</strong></div>
+                  <div class="profile-cell"><span>最近登录</span><strong>{{ fmtDateTime(user.loginTime) || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'STUDENT'"><span>年级</span><strong>{{ user.grade || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'STUDENT' || user.role === 'TEACHER'"><span>所属学院</span><strong>{{ user.college || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'TEACHER'"><span>职称</span><strong>{{ user.title || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'OPERATOR'"><span>负责区域</span><strong>{{ user.area || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'OPERATOR'"><span>职务</span><strong>{{ user.duty || '—' }}</strong></div>
+                  <div class="profile-cell" v-if="user.role === 'ADMIN'"><span>权限等级</span><strong>{{ user.permissionLevel || '—' }}</strong></div>
+                  <div class="profile-cell"><span>注册时间</span><strong>{{ fmtDateTime(user.createdAt) }}</strong></div>
+                </div>
+
+                <div class="profile-note">
+                  <svg class="icon"><use href="#i-shield"></use></svg>
+                  <span>账号信息由图书馆管理员维护。如需修改手机号、专业或角色信息，请联系管理员。所有登录与借阅操作均会写入 AOP 操作日志。</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title"><h2>服务连接</h2><p>前后端分离运行状态</p></div>
+              </div>
+              <div class="panel-body">
+                <div class="mini-list">
+                  <div class="mini-item">
+                    <span class="quick-icon"><svg class="icon"><use href="#i-shield"></use></svg></span>
+                    <div class="mini-main"><strong>登录拦截</strong><span>JWT + HandlerInterceptor</span></div>
+                    <span class="badge badge-green">已启用</span>
+                  </div>
+                  <div class="mini-item">
+                    <span class="quick-icon gold"><svg class="icon"><use href="#i-bell"></use></svg></span>
+                    <div class="mini-main"><strong>实时消息</strong><span>SSE Server-Sent Events</span></div>
+                    <span class="badge" :class="sseConnected ? 'badge-green' : 'badge-amber'">{{ sseConnected ? '在线' : '重连中' }}</span>
+                  </div>
+                  <div class="mini-item">
+                    <span class="quick-icon blue"><svg class="icon"><use href="#i-book"></use></svg></span>
+                    <div class="mini-main"><strong>数据服务</strong><span>Spring Data JPA + MySQL</span></div>
+                    <span class="badge badge-blue">运行中</span>
+                  </div>
+                  <div class="mini-item">
+                    <span class="quick-icon red"><svg class="icon"><use href="#i-history"></use></svg></span>
+                    <div class="mini-main"><strong>操作审计</strong><span>Spring AOP 切面记录</span></div>
+                    <span class="badge badge-gold">已开启</span>
+                  </div>
+                </div>
+                <div class="profile-note" style="background:var(--info-soft);color:var(--info)">
+                  <svg class="icon"><use href="#i-info"></use></svg>
+                  <span>当前接口地址：<span class="mono">{{ apiBase }}</span><br>前端静态页面可独立部署在 Tomcat / Nginx 等 Web 服务器。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================= 弹窗 ======================= -->
+  <div class="modal-mask" v-if="bookDetail.show" @click.self="closeBookDetail">
+    <div class="modal lg">
+      <div class="modal-head">
+        <div>
+          <h3>图书详情</h3>
+          <p>馆藏信息、封面与相关图片</p>
+        </div>
+        <button class="modal-close" @click="closeBookDetail"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div v-if="bookDetail.loading" style="padding:20px">
+          <div class="skeleton-row" style="height:260px"></div>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+        </div>
+        <div v-else-if="bookDetail.data" class="book-detail">
+          <div class="book-detail-cover">
+            <div class="book-cover size-xl" :style="{ background: coverGradient(bookDetail.data.id) }">
+              <img v-if="bookDetail.data.coverUrl" :src="assetUrl(bookDetail.data.coverUrl)" :alt="bookDetail.data.title">
+              <div class="cover-fallback" v-else>
+                <span>{{ bookDetail.data.title.slice(0, 1) }}</span>
+                <small>{{ bookDetail.data.title }}</small>
+              </div>
+            </div>
+            <div class="cover-actions">
+              <span class="badge" :class="bookDetail.data.status === 'ACTIVE' ? 'badge-green' : 'badge-gray'">
+                {{ bookDetail.data.status === 'ACTIVE' ? '在架可借' : '已下架' }}
+              </span>
+              <span class="badge badge-gold">{{ bookDetail.data.type || '未分类' }}</span>
+            </div>
+            <button class="btn btn-ghost btn-sm" v-if="canManageBooks" @click="openBookForm(bookDetail.data)">
+              <svg class="icon"><use href="#i-upload"></use></svg>上传 / 更换图片
+            </button>
+          </div>
+          <div>
+            <h2 class="book-detail-title">{{ bookDetail.data.title }}</h2>
+            <p class="book-detail-author">{{ bookDetail.data.author }} 著 · {{ bookDetail.data.publisher || '出版社未录入' }}</p>
+
+            <div class="book-meta-grid">
+              <div class="book-meta-item"><span>ISBN</span><strong>{{ bookDetail.data.isbn || '—' }}</strong></div>
+              <div class="book-meta-item"><span>索书号</span><strong>{{ bookDetail.data.shelfNo || '—' }}</strong></div>
+              <div class="book-meta-item"><span>馆藏数量</span><strong>{{ bookDetail.data.availableCopies }} / {{ bookDetail.data.totalCopies }} 本可借</strong></div>
+              <div class="book-meta-item"><span>借阅期限</span><strong>{{ bookDetail.data.days }} 天</strong></div>
+              <div class="book-meta-item"><span>定价</span><strong>¥ {{ bookDetail.data.price || '0.00' }}</strong></div>
+              <div class="book-meta-item"><span>入库时间</span><strong>{{ fmtDateTime(bookDetail.data.createdAt) }}</strong></div>
+            </div>
+
+            <div class="book-intro">
+              <h4>内容简介</h4>
+              <p>{{ bookDetail.data.introduction || '暂无简介，管理员可以在编辑图书时补充内容简介。' }}</p>
+            </div>
+
+            <div class="book-intro">
+              <h4 class="gallery-title">相关图片</h4>
+              <div class="gallery-grid" v-if="galleryImages(bookDetail.data).length">
+                <div class="gallery-item" v-for="(image, index) in galleryImages(bookDetail.data)" :key="image.id" @click="openLightbox(galleryImages(bookDetail.data), index)">
+                  <img :src="assetUrl(image.url)" :alt="image.originalName || bookDetail.data.title">
+                </div>
+              </div>
+              <div class="gallery-empty" v-else>暂无相关图片，管理员可在编辑图书时上传一组馆藏实拍或封面图片。</div>
+            </div>
+
+            <div class="detail-actions">
+              <button class="btn btn-primary" v-if="bookDetail.data.availableCopies > 0 && bookDetail.data.status === 'ACTIVE'" @click="borrowBook(bookDetail.data)">
+                <svg class="icon"><use href="#i-swap"></use></svg>立即借阅
+              </button>
+              <button class="btn btn-gold" v-else-if="bookDetail.data.status === 'ACTIVE'" @click="reserveBook(bookDetail.data)">
+                <svg class="icon"><use href="#i-bookmark"></use></svg>预约排队
+              </button>
+              <button class="btn btn-ghost" v-if="canManageBooks" @click="openBookForm(bookDetail.data)">
+                <svg class="icon"><use href="#i-edit"></use></svg>编辑图书
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" @click="closeBookDetail">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" v-if="bookForm.show" @click.self="closeBookForm">
+    <div class="modal lg">
+      <div class="modal-head">
+        <div>
+          <h3>{{ bookForm.mode === 'create' ? '新增图书' : '编辑图书' }}</h3>
+          <p>{{ bookForm.mode === 'create' ? '录入馆藏基础信息，保存后可继续上传封面与相关图片' : '修改图书信息、封面图片与馆藏数量' }}</p>
+        </div>
+        <button class="modal-close" @click="closeBookForm"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field span-2">
+            <label>书名 <small>必填</small></label>
+            <input class="input" v-model.trim="bookForm.data.title" maxlength="100" placeholder="请输入图书名称">
+          </div>
+          <div class="field">
+            <label>作者 <small>必填</small></label>
+            <input class="input" v-model.trim="bookForm.data.author" maxlength="60" placeholder="请输入作者">
+          </div>
+          <div class="field">
+            <label>分类</label>
+            <input class="input" v-model.trim="bookForm.data.type" placeholder="例如：文学 / 计算机 / 历史">
+          </div>
+          <div class="field">
+            <label>出版社</label>
+            <input class="input" v-model.trim="bookForm.data.publisher" maxlength="60" placeholder="出版社名称">
+          </div>
+          <div class="field">
+            <label>ISBN</label>
+            <input class="input" v-model.trim="bookForm.data.isbn" maxlength="30" placeholder="13 位 ISBN，可留空">
+          </div>
+          <div class="field">
+            <label>索书号</label>
+            <input class="input" v-model.trim="bookForm.data.shelfNo" maxlength="30" placeholder="例如：B-01">
+          </div>
+          <div class="field">
+            <label>借阅天数</label>
+            <input class="input" type="number" min="1" v-model.number="bookForm.data.days">
+          </div>
+          <div class="field">
+            <label>定价（元）</label>
+            <input class="input" type="number" min="0" step="0.01" v-model.number="bookForm.data.price">
+          </div>
+          <div class="field">
+            <label>馆藏数量</label>
+            <input class="input" type="number" min="0" v-model.number="bookForm.data.totalCopies">
+          </div>
+          <div class="field">
+            <label>图书状态</label>
+            <select class="select" v-model="bookForm.data.status">
+              <option value="ACTIVE">在架</option>
+              <option value="DISCARDED">已下架</option>
+            </select>
+          </div>
+          <div class="field span-2">
+            <label>内容简介</label>
+            <textarea class="textarea" v-model.trim="bookForm.data.introduction" maxlength="2000" placeholder="填写图书简介、馆藏说明或阅读推荐语"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:22px;padding-top:20px;border-top:1px solid var(--line)">
+          <div class="section-head" style="margin-bottom:12px">
+            <div>
+              <h2 style="font-size:16px">封面与相关图片</h2>
+              <p>封面显示在馆藏列表；相关图片用于展示书影、目录或馆藏实拍</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>图书封面 <small>单张，最大 8MB</small></label>
+              <label class="upload-zone">
+                <input type="file" accept="image/*" @change="onCoverSelect">
+                <svg class="icon"><use href="#i-upload"></use></svg>
+                <strong>{{ bookForm.coverFile ? bookForm.coverFile.name : '点击选择封面图片' }}</strong>
+                <span>支持 jpg / png / gif / webp / bmp / svg</span>
+              </label>
+              <div class="upload-grid" v-if="bookFormCoverUrl()">
+                <div class="upload-thumb"><img :src="bookFormCoverUrl()" alt="封面预览"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label>相关图片 <small>可多选，最多 12 张</small></label>
+              <label class="upload-zone">
+                <input type="file" accept="image/*" multiple @change="onGallerySelect">
+                <svg class="icon"><use href="#i-image"></use></svg>
+                <strong>{{ bookForm.galleryFiles.length ? '已选择 ' + bookForm.galleryFiles.length + ' 张图片' : '点击选择一组相关图片' }}</strong>
+                <span>查看图书时可浏览全部相关图片</span>
+              </label>
+              <div class="upload-files" v-if="bookForm.galleryFiles.length">
+                <span class="file-chip" v-for="file in bookForm.galleryFiles" :key="file.name + file.size">
+                  <svg class="icon"><use href="#i-image"></use></svg>{{ file.name }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <template v-if="bookForm.existing.length">
+            <div class="gallery-title" style="margin-top:16px">已上传的图片（点击右上角删除）</div>
+            <div class="upload-grid">
+              <div class="upload-thumb" v-for="image in bookForm.existing" :key="image.id">
+                <img :src="assetUrl(image.url)" :alt="image.originalName || '图书图片'">
+                <button class="thumb-del" type="button" @click="removeAttachment(image)" title="删除图片">
+                  <svg class="icon"><use href="#i-close"></use></svg>
+                </button>
+              </div>
+            </div>
+          </template>
+          <div class="profile-note" style="margin-top:14px">
+            <svg class="icon"><use href="#i-info"></use></svg>
+            <span>图片保存在后端 uploads 目录，并通过附件表 book_attachment 与图书关联。封面与相关图片分开管理，便于列表页快速展示。</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <span class="left muted" style="font-size:10.5px">带 * 为必填项，图片会在保存后自动上传</span>
+        <button class="btn btn-ghost" @click="closeBookForm">取消</button>
+        <button class="btn btn-primary" @click="saveBook" :disabled="bookForm.saving">
+          <span v-if="bookForm.saving" class="spinner"></span>
+          {{ bookForm.saving ? '正在保存...' : '保存图书' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" v-if="userDetail.show" @click.self="closeUserDetail">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3>用户档案</h3>
+          <p>账号信息与角色资料</p>
+        </div>
+        <button class="modal-close" @click="closeUserDetail"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body" v-if="userDetail.data">
+        <div class="profile-hero">
+          <div class="avatar lg">{{ (userDetail.data.name || '?').slice(0, 1) }}</div>
+          <div>
+            <h3>{{ userDetail.data.name }}</h3>
+            <p>{{ roleLabel(userDetail.data.role) }} · {{ userDetail.data.major || '未填写专业' }}</p>
+            <span class="badge" :class="userDetail.data.status === 'ACTIVE' ? 'badge-green' : 'badge-red'" style="margin-top:6px">
+              {{ userDetail.data.status === 'ACTIVE' ? '账号正常' : '账号已停用' }}
+            </span>
+          </div>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-cell"><span>用户 ID</span><strong>#{{ userDetail.data.id }}</strong></div>
+          <div class="profile-cell"><span>手机号</span><strong>{{ userDetail.data.phone || '—' }}</strong></div>
+          <div class="profile-cell"><span>电子邮箱</span><strong>{{ userDetail.data.email || '—' }}</strong></div>
+          <div class="profile-cell"><span>专业 / 学科</span><strong>{{ userDetail.data.major || '—' }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.grade"><span>年级</span><strong>{{ userDetail.data.grade }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.college"><span>所属学院</span><strong>{{ userDetail.data.college }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.title"><span>职称</span><strong>{{ userDetail.data.title }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.area"><span>负责区域</span><strong>{{ userDetail.data.area }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.duty"><span>职务</span><strong>{{ userDetail.data.duty }}</strong></div>
+          <div class="profile-cell" v-if="userDetail.data.permissionLevel"><span>权限等级</span><strong>{{ userDetail.data.permissionLevel }}</strong></div>
+          <div class="profile-cell"><span>最近登录</span><strong>{{ fmtDateTime(userDetail.data.loginTime) || '从未登录' }}</strong></div>
+          <div class="profile-cell"><span>注册时间</span><strong>{{ fmtDateTime(userDetail.data.createdAt) }}</strong></div>
+        </div>
+        <div class="profile-note">
+          <svg class="icon"><use href="#i-shield"></use></svg>
+          <span>停用账号后，该用户将无法登录或调用任何受保护接口；已存在的借阅与预约记录仍会保留。</span>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" @click="closeUserDetail">关闭</button>
+        <button class="btn" :class="userDetail.data && userDetail.data.status === 'ACTIVE' ? 'btn-danger' : 'btn-primary'"
+                v-if="userDetail.data" @click="toggleUserStatus(userDetail.data)">
+          {{ userDetail.data.status === 'ACTIVE' ? '停用账号' : '启用账号' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" v-if="confirmState.show" @click.self="closeConfirm">
+    <div class="modal sm">
+      <div class="modal-body" style="padding-top:28px">
+        <div class="confirm-icon" :class="{ danger: confirmState.tone === 'danger' }">
+          <svg class="icon"><use :href="confirmState.tone === 'danger' ? '#i-alert' : '#i-info'"></use></svg>
+        </div>
+        <h3 class="confirm-title">{{ confirmState.title }}</h3>
+        <p class="confirm-text">{{ confirmState.message }}</p>
+      </div>
+      <div class="modal-foot" style="justify-content:center">
+        <button class="btn btn-ghost" @click="closeConfirm">取消</button>
+        <button class="btn" :class="confirmState.tone === 'danger' ? 'btn-danger' : 'btn-primary'" @click="runConfirm">
+          {{ confirmState.confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" v-if="lightbox.show" @click.self="closeLightbox">
+    <button class="btn-icon lightbox-close" @click="closeLightbox"><svg class="icon"><use href="#i-close"></use></svg></button>
+    <button class="lightbox-nav prev" v-if="lightbox.images.length > 1" @click.stop="lightboxPrev">
+      <svg class="icon"><use href="#i-chevron-left"></use></svg>
+    </button>
+    <img :src="lightbox.images[lightbox.index] && assetUrl(lightbox.images[lightbox.index].url)" alt="图书图片">
+    <button class="lightbox-nav next" v-if="lightbox.images.length > 1" @click.stop="lightboxNext">
+      <svg class="icon"><use href="#i-chevron-right"></use></svg>
+    </button>
+  </div>
+
+  <div class="boot-screen" v-if="booting">
+    <div class="boot-brand">
+      <div class="brand-mark"><svg class="icon"><use href="#i-book"></use></svg></div>
+      <div>
+        <strong>拾光图书馆</strong>
+        <span>正在连接馆藏服务...</span>
+      </div>
+      <span class="spinner dark"></span>
+    </div>
+  </div>
+
+  <div class="toast-stack">
+    <div class="toast" v-for="toast in toasts" :key="toast.id" :class="[toast.type, { leaving: toast.leaving }]">
+      <div class="toast-icon">
+        <svg class="icon"><use :href="toast.type === 'error' ? '#i-alert' : (toast.type === 'info' ? '#i-info' : '#i-check')"></use></svg>
+      </div>
+      <div class="toast-body">
+        <strong>{{ toast.title }}</strong>
+        <p v-if="toast.message">{{ toast.message }}</p>
+      </div>
+      <button class="toast-close" @click="dismissToast(toast.id)"><svg class="icon"><use href="#i-close"></use></svg></button>
+    </div>
+  </div>
+</div>
+
+<script src="lib/vue.global.prod.js"></script>
+<script src="lib/axios.min.js"></script>
+<script src="config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
