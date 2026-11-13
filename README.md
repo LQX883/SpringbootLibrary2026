@@ -215,12 +215,17 @@ java -jar target/SpringbootLibrary2026.jar
 
 ### 5. 部署前端到 Tomcat
 
-把 `frontend/` 目录整体复制为 Tomcat 的 Web 应用：
+脚本会自动探测 Tomcat 安装目录，**直接双击 `scripts\deploy-frontend.bat` 即可**：
+
+探测顺序：命令行参数 → 环境变量 `CATALINA_HOME` / `CATALINA_BASE` → `E:\java\tomcat\apache-tomcat-*` → `C:\apache-tomcat*` → `C:\Program Files\Apache Software Foundation\Tomcat*`。
+
+也可以显式指定 Tomcat 路径：
 
 ```bat
-set TOMCAT_HOME=E:\java\tomcat\apache-tomcat-9.0.123
-scripts\deploy-frontend.bat
+scripts\deploy-frontend.bat "E:\java\tomcat\apache-tomcat-9.0.123"
 ```
+
+若 Tomcat 正在运行，脚本会提示先执行 `bin\shutdown.bat` 关闭，否则无法覆盖旧的部署目录。
 
 或手动复制：
 
