@@ -422,7 +422,15 @@ http://192.168.x.x:8080/library2026/
 
 ## 九、代码仓库
 
-项目已初始化为 Git 仓库，按功能阶段形成提交记录，并已推送到远程仓库：
+项目已初始化为 Git 仓库，按功能阶段形成提交记录，并已推送到 Gitee 与 GitHub，两处提交历史完全一致。
+
+Gitee（作业提交地址）：
+
+```text
+https://gitee.com/lqx528/springboot-library2026
+```
+
+GitHub（镜像）：
 
 ```text
 https://github.com/LQX883/SpringbootLibrary2026
@@ -431,14 +439,14 @@ https://github.com/LQX883/SpringbootLibrary2026
 克隆方式：
 
 ```bash
-git clone https://github.com/LQX883/SpringbootLibrary2026.git
+git clone https://gitee.com/lqx528/springboot-library2026.git
 ```
 
-若课程要求提交到 Gitee，可直接把同一仓库推送到 Gitee 作为镜像，提交记录完全一致：
+两个远程已配置完成，后续改动可一次推到两边：
 
 ```bash
-git remote add gitee https://gitee.com/你的用户名/SpringbootLibrary2026.git
 git push gitee master
+git push origin master
 ```
 
 > `.gitignore` 已排除 `target/`、`dist/`、`uploads/`、`logs/`、`.idea/`，构建产物与个人配置不会进入仓库。
@@ -468,7 +476,7 @@ git push gitee master
 | 要求 | 实现情况 |
 | --- | --- |
 | 1. Maven 创建 Spring Boot 项目 | `pom.xml`，项目名 `SpringbootLibrary2026` |
-| 2. 推送代码仓库 | 已推送 https://github.com/LQX883/SpringbootLibrary2026 |
+| 2. 推送代码仓库 | Gitee https://gitee.com/lqx528/springboot-library2026（GitHub 同步镜像） |
 | 3. Spring Data JPA + MySQL | 7 个 JPA Repository，MySQL `springboot_library_2026` |
 | 4. 前端非 JSP、美观友好 | Vue 3 + 原生 CSS，独立静态页面 |
 | 5. 前后端分离 | 后端 REST API 8081，前端部署 Tomcat 8080 |
