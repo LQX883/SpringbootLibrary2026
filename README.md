@@ -422,6 +422,26 @@ git push gitee master
 
 > `.gitignore` 已排除 `target/`、`dist/`、`uploads/`、`logs/`、`.idea/`，构建产物与个人配置不会进入仓库。
 
+### 分阶段提交记录
+
+每一步对应一个可独立编译的功能切片，按此顺序依次提交：
+
+| 序号 | 提交内容 | 涉及模块 |
+| --- | --- | --- |
+| 1 | 初始化 Maven 工程 | `pom.xml`、启动类、统一响应与异常处理 |
+| 2 | 建立 JPA 实体与仓库 | `entity`、`repository`（7 张表） |
+| 3 | JWT 令牌与登录拦截 | `security`、`UserContext`、`WebConfig` |
+| 4 | AOP 操作日志 | `aspect`、`OperationLogService`、日志查询接口 |
+| 5 | 登录注册与用户管理 | `AuthController`、`UserController`、`AuthService`、`UserService` |
+| 6 | 消息通知与预约排队服务 | `NotificationService`、`ReservationService` |
+| 7 | 图书管理与封面图集上传 | `BookService`、`FileStorageService`、`BookController` |
+| 8 | 借阅与归还 | `LoanService`、`LoanController` |
+| 9 | 预约与 SSE 推送接口 | `ReservationController`、`NotificationController` |
+| 10 | 馆藏数据统计 | `StatsService`、`StatsController` |
+| 11 | 演示数据初始化 | `DataInitializer` |
+| 12 | 前后端分离界面 | `frontend/`（Vue 3 + Axios） |
+| 13 | 数据库脚本、E-R 图与部署文档 | `sql/`、`docs/`、`scripts/`、`README.md` |
+
 ## 十、作业要求对照
 
 | 要求 | 实现情况 |
@@ -438,7 +458,7 @@ git push gitee master
 | 10. 预约与到书推送 | reservation + notification + SSE |
 | 11. AOP 操作日志 | `@LogOperation` + `OperationLogAspect` |
 | 12. 数据库 E-R 图 | `docs/er-diagram.png`、`docs/ER.md` |
-| 13. 逐步提交代码仓 | 8 次按功能阶段的提交，提交历史即实现过程 |
+| 13. 逐步提交代码仓 | 13 次按功能阶段的提交，每个提交均可独立编译通过 |
 | 14. Jar 依赖与代码分离 | 普通 Jar + `lib/`，Manifest `Class-Path` |
 | 15. 局域网运行演示 | README 提供 IP、端口放行、访问与录制步骤 |
 
