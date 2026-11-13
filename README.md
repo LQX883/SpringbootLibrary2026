@@ -258,6 +258,22 @@ location.reload();
 | 教师 | `teacher` | `teacher123` |
 | 其他演示学生 | `student2` ~ `student10` | `student123` |
 
+### 7. 一键启动与停止
+
+为避免漏掉「部署前端 / 启动 Tomcat」步骤，项目提供两个脚本：
+
+```bat
+scripts\start-all.bat   :: 检查 MySQL → 启动后端 → 缺失时部署前端 → 启动 Tomcat → 自检并打印访问地址
+scripts\stop-all.bat    :: 关闭 Tomcat 与后端，释放 8080 / 8081
+```
+
+`start-all.bat` 的判定逻辑：
+
+- 8081 已在监听则跳过后端启动，否则从 `dist\SpringbootLibrary2026\SpringbootLibrary2026.jar`（不存在时回退 `target`）启动；
+- `webapps\library2026\index.html` 已存在则跳过前端部署；
+- 8080 已在监听则跳过 Tomcat 启动；
+- 最后统一等待 15 秒，分别探测 `/api/auth/health` 与 `/library2026/`，逐项打印"通过/失败"。
+
 ## 五、接口一览
 
 统一响应：
